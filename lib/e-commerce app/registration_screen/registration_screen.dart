@@ -81,11 +81,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             'fcm_token': userFcmToken,
             'user_uuid': userUuid,
             'type': "REGISTER",
-
           })
           .then((value) => CommonWidgets.printFunction("User Added ${users}"))
-
-
           .catchError((error) => CommonWidgets.printFunction("Failed to add user: $error"));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -292,32 +289,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     "Sign Up",
                     style: GoogleFonts.poppins(fontSize: CommonLogic.textSize * 0.02, fontWeight: FontWeight.w500, color: Colors.white),
                   ),
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(vertical: CommonLogic.textSize * 0.015, horizontal: CommonLogic.textSize * 0.02),
-                margin: EdgeInsets.symmetric(vertical: CommonLogic.textSize * 0.02, horizontal: CommonLogic.textSize * 0.02),
-                decoration: BoxDecoration(color: const Color(0xffF7F7F9), borderRadius: BorderRadius.circular(15)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset("assets/images/ecommerce/google_ic.webp", height: CommonLogic.textSize * 0.025),
-                    Padding(
-                      padding: EdgeInsets.only(left: CommonLogic.textSize * 0.01),
-                      child: Text(
-                        "Sign Up With Google",
-                        style: GoogleFonts.poppins(
-                          fontSize: CommonLogic.textSize * 0.02,
-                          fontWeight: FontWeight.w500,
-                          color: const Color(0xff2B2B2B),
-                        ),
-                      ),
-                    ),
-                  ],
                 ),
               ),
             ),
