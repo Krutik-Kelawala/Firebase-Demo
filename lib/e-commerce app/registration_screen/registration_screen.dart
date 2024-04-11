@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:test_project/e-commerce%20app/dashboard/dashboard.dart';
 import 'package:test_project/e-commerce%20app/login_screen/login_screen.dart';
+import 'package:test_project/e-commerce%20app/login_screen/social_login/authentication/authentication_class.dart';
 import 'package:test_project/utilities/common_logic.dart';
 import 'package:test_project/widgets/common_widgets.dart';
 
@@ -30,6 +31,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     });
   }
 
+  bool isSigningIn = false;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -54,6 +57,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       );
       credential.user!.updateDisplayName(nameController.text);
       CommonWidgets.printFunction("user credential ${credential} ${credential.user!.displayName}");
+      CommonWidgets.printFunction("user credential $credential ${credential.user!.displayName}");
 
       if (mounted) {
         CommonWidgets.commonSuccessToast("Registration Successfully!", context);
@@ -76,8 +80,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             'password': passwordController.text,
             'fcm_token': userFcmToken,
             'user_uuid': userUuid,
+            'type': "REGISTER",
+
           })
           .then((value) => CommonWidgets.printFunction("User Added ${users}"))
+
+
           .catchError((error) => CommonWidgets.printFunction("Failed to add user: $error"));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -313,6 +321,83 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
               ),
             ),
+            FutureBuilder(
+              future: Authentication.initializeFirebase(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return InkWell(
+                    onTap: () async {
+                      setState(() {
+                        isSigningIn = true;
+                      });
+
+                      User? user = await Authentication.signInWithGoogle(context);
+
+                      setState(() {
+                        isSigningIn = false;
+                      });
+
+                      if (user != null) {
+                        if (context.mounted) {
+                          CommonWidgets.printFunction("user detail mail ${user.email!} name ${user.displayName!} image pic ${user.photoURL}");
+                          Navigator.pushReplacement(context, MaterialPageRoute(
+                            builder: (context) {
+                              return const DashboardScreen();
+                            },
+                          ));
+                        }
+
+                        /* CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+                        return users.add({
+                          'name': user.displayName,
+                          'email_id': user.email,
+                          'password': "",
+                          'fcm_token': userFcmToken,
+                          'user_uuid': user.uid,
+                          'type': "GOOGLE_REG",
+                        }).then((value) {
+                          CommonWidgets.printFunction("User Added $users");
+
+                          if (context.mounted) {
+                            CommonWidgets.printFunction("user detail mail ${user.email!} name ${user.displayName!} image pic ${user.photoURL}");
+                            Navigator.pushReplacement(context, MaterialPageRoute(
+                              builder: (context) {
+                                return const DashboardScreen();
+                              },
+                            ));
+                          }
+                        }).catchError((error) => CommonWidgets.printFunction("Failed to add user: $error"));*/
+                      }
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(vertical: CommonLogic.textSize * 0.015, horizontal: CommonLogic.textSize * 0.02),
+                      margin: EdgeInsets.symmetric(vertical: CommonLogic.textSize * 0.02, horizontal: CommonLogic.textSize * 0.02),
+                      decoration: BoxDecoration(color: const Color(0xffF7F7F9), borderRadius: BorderRadius.circular(15)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset("assets/images/ecommerce/google_ic.webp", height: CommonLogic.textSize * 0.025),
+                          Padding(
+                            padding: EdgeInsets.only(left: CommonLogic.textSize * 0.01),
+                            child: Text(
+                              "Sign In With Google",
+                              style: GoogleFonts.poppins(
+                                fontSize: CommonLogic.textSize * 0.02,
+                                fontWeight: FontWeight.w500,
+                                color: const Color(0xff2B2B2B),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }
+                return const Center(child: CircularProgressIndicator());
+              },
+            )
           ]),
         ),
       ),
