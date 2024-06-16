@@ -7,6 +7,7 @@ import 'package:test_project/lead%20generate/screen/form_screen/form_screen.dart
 import 'package:test_project/pagination_demo/pagination_with_controller/pagination_with_con.dart';
 import 'package:test_project/pagination_demo/pagination_without_controller/pagination_without_con.dart';
 import 'package:test_project/routeFile.dart' as router;
+import 'package:test_project/search_history_screen/search_history_screen.dart';
 import 'package:test_project/utilities/common_logic.dart';
 import 'package:test_project/widgets/common_widgets.dart';
 
@@ -137,6 +138,15 @@ class _MyHome_PageState extends State<MyHome_Page> {
                             }));
                           },
                           child: const Text("Pagination Without Controller"))),
+                  Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) {
+                              return const SearchScreen();
+                            }));
+                          },
+                          child: const Text("Search History Screen"))),
                 ]),
               )),
         ));

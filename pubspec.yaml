@@ -39,15 +39,15 @@ dependencies:
 #  google_fonts: ^4.0.4
   intl: ^0.18.1
   flutter_bloc: ^8.1.3
-  graphql_flutter: ^5.1.2
-  shimmer: ^3.0.0
+#  graphql_flutter: ^5.1.2
+#  shimmer: ^3.0.0
   csc_picker: ^0.2.7
-  video_player: ^2.8.2
-  vimeo_video_player: ^0.0.10
+#  video_player: ^2.8.2
+#  vimeo_video_player: ^0.0.10
   get: ^4.6.6
-  flutter_kinescope_sdk: ^0.1.4
+#  flutter_kinescope_sdk: ^0.1.4
   shared_preferences: ^2.2.2
-  flutter_inappwebview: ^5.8.0
+#  flutter_inappwebview: ^5.8.0
   firebase_core: ^2.25.3
   firebase_messaging: ^14.7.14
   firebase_analytics: ^10.8.4
@@ -55,7 +55,7 @@ dependencies:
   firebase_crashlytics: ^3.4.13
   firebase_performance: ^0.9.3+13
   firebase_app_installations: ^0.2.4+13
-  awesome_drawer_bar: ^1.2.0
+#  awesome_drawer_bar: ^1.2.0
   cloud_firestore: ^4.15.5
   firebase_auth: ^4.17.6
   toastification: ^1.2.1

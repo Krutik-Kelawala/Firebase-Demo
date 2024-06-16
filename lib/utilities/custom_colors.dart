@@ -11,4 +11,7 @@ class CustomColors {
   static Color boxShadowColour = Colors.black.withOpacity(0.2);
   static Color btnBlueColor = const Color(0xff3C78F0);
   static Color transparent = const Color(0x00000000);
+  static Color white = Colors.white;
+  static Color black = Colors.black;
+  static Color red = Colors.red;
 }

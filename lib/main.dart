@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:test_project/firebase_options.dart';
 import 'package:test_project/myHomePage.dart';
 import 'package:test_project/routeFile.dart' as router;
+import 'package:test_project/utilities/common_pref.dart';
 import 'package:test_project/widgets/common_widgets.dart';
 
 @pragma('vm:entry-point')
@@ -89,7 +90,9 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(const MyApp());
+  CommonSharedPreferences.init().then((value) {
+    runApp(const MyApp());
+  });
 }
 
 class MyApp extends StatefulWidget {
